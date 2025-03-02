@@ -1,0 +1,43 @@
+.article_grid {
+    display: grid;
+    grid-template: 
+        ".      source" 1fr 2fr
+        "media  text"   100px / 1fr 2fr
+        ".      date"   1fr 2fr;
+    row-gap: 8px;
+    column-gap: 12px;
+}
+
+.article_media {
+    grid-area: media;
+    max-width: 100px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+}
+
+.article_text {
+    grid-area: text;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+}
+
+.article_source {
+    grid-area: source;
+    font-size: 14px;
+    font-weight: 800;
+    color: rgba(9, 111, 250, 1);
+    text-decoration: none;
+}
+
+.article_source:hover {
+    text-decoration: none;
+}
+
+.article_date {
+    grid-area: date;
+    color: rgba(109, 120, 122, 1);
+    font-size: 14px;
+}
