@@ -1,11 +1,15 @@
 .article_grid {
     display: grid;
     grid-template: 
-        ".      source" 1fr 2fr
-        "media  text"   100px / 1fr 2fr
-        ".      date"   1fr 2fr;
+        ".      source" min-content
+        "media  text"   min-content
+        ".      date"   min-content  / 100px auto;  
     row-gap: 8px;
     column-gap: 12px;
+
+    & p{
+        margin: 0;
+    }
 }
 
 .article_media {

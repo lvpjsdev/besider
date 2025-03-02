@@ -6,7 +6,7 @@ export type Media = {
   width: number;
 };
 
-export type Article = {
+export type ArticleType = {
   web_url: string;
   snippet: string;
   pub_date: string;

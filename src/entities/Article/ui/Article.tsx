@@ -31,7 +31,7 @@ export const Article: FC<Props> = ({ media, source, text, date, url }) => {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
-          timeStyle: 'short',
+          //   timeStyle: 'short',
         })}
       </p>
     </article>

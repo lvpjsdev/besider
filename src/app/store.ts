@@ -3,16 +3,12 @@ import { articlesApi } from '../features/ArticlesList/api/api';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 export const store = configureStore({
-    reducer: {
-        [articlesApi.reducerPath]: articlesApi.reducer,
-    },
-    middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(articlesApi.middleware);
-    },
-    devTools: {
-        trace: true,
-        traceLimit: 25,
-    },
+  reducer: {
+    [articlesApi.reducerPath]: articlesApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(articlesApi.middleware);
+  },
 });
 
 setupListeners(store.dispatch);

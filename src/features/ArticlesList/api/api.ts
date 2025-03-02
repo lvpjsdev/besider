@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Article } from '../../../entities/Article/model/types';
+import { ArticleType as Article } from '../../../entities/Article/model/types';
 
 interface ArticlesListResponse {
   response: {
@@ -12,17 +12,14 @@ interface ArticlesListParams {
   month: number;
 }
 
-type GetArticlesListResult = {
-  dateParam: Date;
-  articles: Article[];
-};
+type GetArticlesListResult = Article[];
 
 const nowDate = new Date();
 
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.nytimes.com/svc/archive/v1/',
+    baseUrl: '/api',
   }),
   endpoints: (build) => ({
     getInfiniteArticles: build.infiniteQuery<
@@ -35,24 +32,22 @@ export const articlesApi = createApi({
           year: nowDate.getFullYear(),
           month: nowDate.getMonth() + 1,
         },
-        getNextPageParam: (lastPage) => {
-          const pageParam = new Date(
-            lastPage.dateParam.setMonth(lastPage.dateParam.getMonth() + 1)
+        getNextPageParam: (_lastPage, _allPages, lastPageParam) => {
+          const pageDate = new Date(
+            `01/${lastPageParam.month}/${lastPageParam.year}`
           );
+          pageDate.setMonth(pageDate.getMonth() + 1);
+
           return {
-            year: pageParam.getFullYear(),
-            month: pageParam.getMonth() + 1,
+            year: pageDate.getFullYear(),
+            month: pageDate.getMonth() + 1,
           };
         },
       },
       query: ({ pageParam: { year, month } }) =>
         `${year}/${month}.json?api-key=${import.meta.env.VITE_API_KEY}`,
-      transformResponse: (response: ArticlesListResponse, _meta, arg) => {
-        const dateParam = new Date(arg.pageParam.year, arg.pageParam.month - 1);
-        return {
-          dateParam,
-          articles: response.response.docs,
-        };
+      transformResponse: (response: ArticlesListResponse) => {
+        return response.response.docs;
       },
     }),
   }),
