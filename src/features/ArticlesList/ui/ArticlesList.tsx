@@ -26,7 +26,7 @@ export const ArticlesList = () => {
       <InfiniteScroll
         dataLength={articles.size}
         next={fetchNextPage}
-        hasMore={true}
+        hasMore={!isLoading && !isFetching}
         loader={<Loader />}
         scrollThreshold={'300px'}
       >
@@ -35,8 +35,6 @@ export const ArticlesList = () => {
             <ArticlesListContent key={key} dateStr={key} articles={articles} />
           );
         })}
-        <button onClick={() => fetchNextPage()}>Load more</button>
-        {(isLoading || isFetching) && <Loader />}
       </InfiniteScroll>
     </StyledDiv>
   );

@@ -1,8 +1,12 @@
 import { FC } from 'react';
 import { styled } from 'styled-components';
 
+export const convertDate = (dateStr: string) => {
+  return dateStr.split('T')[0].split('-').reverse().join('.');
+};
+
 interface Props {
-  date: string | number;
+  date: string;
 }
 
 const StyledP = styled.p`
@@ -14,10 +18,5 @@ const StyledP = styled.p`
 `;
 
 export const DateDivider: FC<Props> = ({ date }) => {
-  const dateStr = new Date(date).toLocaleDateString('ru-RU', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-  });
-  return <StyledP>{`News for ${dateStr}`}</StyledP>;
+  return <StyledP>{`News for ${convertDate(date)}`}</StyledP>;
 };

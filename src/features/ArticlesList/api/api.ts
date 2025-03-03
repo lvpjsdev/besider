@@ -75,15 +75,16 @@ export const selectArticlesBySection = createSelector(
 );
 
 export const selectMapArticlesByDate = createSelector(
-  selectArticlesBySection,
+  [selectArticlesBySection],
   (articles = []) => {
     const map = new Map<string, Article[]>();
     articles.forEach((article: Article) => {
-      const articleDate = new Date(article.pub_date);
-      const day = articleDate.getDate();
-      const month = articleDate.getMonth() + 1;
-      const year = articleDate.getFullYear();
-      const dateStr = `${day}/${month}/${year}`;
+      const [year, month, day] = article.pub_date
+        .split('T')[0]
+        .split('-')
+        .reverse();
+
+      const dateStr = `${day}-${month}-${year}`;
       if (!map.has(dateStr)) {
         map.set(dateStr, []);
       }
