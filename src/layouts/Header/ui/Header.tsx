@@ -6,7 +6,11 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: center;
   padding: 21px 0;
+  background-color: rgba(255, 255, 255, 1);
   border-bottom: 1px solid rgba(237, 237, 237, 1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const StyledH1 = styled.h1`
