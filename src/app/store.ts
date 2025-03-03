@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { articlesApi } from '../features/ArticlesList/api/api';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import { menuReducer } from '../features/Menu/store/menuSlice';
 
 export const store = configureStore({
   reducer: {
     [articlesApi.reducerPath]: articlesApi.reducer,
+    menu: menuReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(articlesApi.middleware);

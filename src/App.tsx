@@ -2,8 +2,7 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import { ArticlesList } from './features/ArticlesList/ui/ArticlesList';
 import './App.css';
-import { Menu } from './features/Menu/Menu';
-import { MenuItem } from './features/Menu/MenuItem';
+import { Menu, MenuItem } from './features/Menu/ui';
 
 function App() {
   return (

@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ArticleType as Article } from '../../../entities/Article/model/types';
+import { type RootState } from '../../../app/store';
+import { createSelector } from '@reduxjs/toolkit';
+import { selectMenuState } from '../../Menu/store/menuSlice';
 
 interface ArticlesListResponse {
   response: {
@@ -36,7 +39,7 @@ export const articlesApi = createApi({
           const pageDate = new Date(
             `01/${lastPageParam.month}/${lastPageParam.year}`
           );
-          pageDate.setMonth(pageDate.getMonth() + 1);
+          pageDate.setMonth(pageDate.getMonth() - 1);
 
           return {
             year: pageDate.getFullYear(),
@@ -54,3 +57,19 @@ export const articlesApi = createApi({
 });
 
 export const { useGetInfiniteArticlesInfiniteQuery } = articlesApi;
+
+export const selectArticlesBySection = createSelector(
+  (state: RootState) =>
+    articlesApi.endpoints.getInfiniteArticles.select({})(state),
+  selectMenuState,
+  (articlesResult, menuState) => {
+    const articles = articlesResult.data?.pages.flatMap((page) => page);
+    return articles?.filter((article) => {
+      if (menuState.section === 'General') {
+        return true;
+      } else {
+        return article.section_name === menuState.section;
+      }
+    });
+  }
+);

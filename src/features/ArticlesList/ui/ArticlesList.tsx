@@ -1,16 +1,21 @@
+import { useAppSelector } from '../../../app/hooks';
 import { ArticleType } from '../../../entities/Article/model/types';
 import { Article } from '../../../entities/Article/ui/Article';
-import { useGetInfiniteArticlesInfiniteQuery } from '../api/api';
+import {
+  selectArticlesBySection,
+  useGetInfiniteArticlesInfiniteQuery,
+} from '../api/api';
 
 export const ArticlesList = () => {
-  const { data, fetchNextPage } = useGetInfiniteArticlesInfiniteQuery({});
+  const { fetchNextPage, isFetching, isLoading } =
+    useGetInfiniteArticlesInfiniteQuery({});
 
-  const articles = data?.pages.flatMap((page) => page) ?? [];
+  const articles = useAppSelector(selectArticlesBySection);
 
   return (
     <>
       <button onClick={() => fetchNextPage()}>Load more</button>
-      {articles.map((article: ArticleType) => {
+      {articles?.map((article: ArticleType) => {
         const media = article.multimedia[0];
         return (
           <Article
@@ -23,6 +28,7 @@ export const ArticlesList = () => {
           />
         );
       })}
+      {(isLoading || isFetching) && <p>LOADING...</p>}
     </>
   );
 };

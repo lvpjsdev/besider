@@ -1,7 +1,7 @@
 import { FC, type ReactNode } from 'react';
 import { slide as MenuComponent, Styles } from 'react-burger-menu';
-import hamburger from '../../assets/hamburger.svg';
-import cross from '../../assets/cross.svg';
+import hamburger from '../../../assets/hamburger.svg';
+import cross from '../../../assets/cross.svg';
 
 const styles: Partial<Styles> = {
   bmBurgerButton: {
@@ -25,14 +25,6 @@ const styles: Partial<Styles> = {
     alignItems: 'start',
     height: '100%',
   },
-
-  //   bmMenu: {
-
-  //     padding: '20px',
-  //     gap: '20px',
-  //     color: 'var(--text-color)',
-  //     backgroundColor: 'var(--bg-color)',
-  //   },
 };
 
 export const Menu: FC<{ children: ReactNode }> = ({ children }) => {

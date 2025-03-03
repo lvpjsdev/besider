@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import { useAppDispatch } from '../../../app/hooks';
+import { menuSlice } from '../store/menuSlice';
 
 const Span = styled.span`
   display: block;
@@ -19,5 +21,14 @@ const Span = styled.span`
 
 export const MenuItem: FC<{ label: string; onClick: () => void }> = ({
   label,
-  onClick,
-}) => <Span onClick={onClick}>{label}</Span>;
+}) => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <Span
+      onClick={() => dispatch(menuSlice.actions.changeCurrentSection(label))}
+    >
+      {label}
+    </Span>
+  );
+};
