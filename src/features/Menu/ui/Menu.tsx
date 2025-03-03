@@ -1,9 +1,8 @@
-import { FC, useState, type ReactNode } from 'react';
+import { FC, useState } from 'react';
 import { slide as MenuComponent, Styles } from 'react-burger-menu';
 import hamburger from '../../../assets/hamburger.svg';
 import cross from '../../../assets/cross.svg';
 import { MenuItem } from './MenuItem';
-import { useAppDispatch } from '../../../app/hooks';
 
 const styles: Partial<Styles> = {
   bmBurgerButton: {

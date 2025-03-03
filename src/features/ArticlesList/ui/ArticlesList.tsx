@@ -8,7 +8,10 @@ import {
 
 export const ArticlesList = () => {
   const { fetchNextPage, isFetching, isLoading } =
-    useGetInfiniteArticlesInfiniteQuery({});
+    useGetInfiniteArticlesInfiniteQuery(
+      {},
+      { pollingInterval: +(import.meta.env.VITE_POLLING_INTERVAL || 30000) }
+    );
 
   const articles = useAppSelector(selectArticlesBySection);
 
