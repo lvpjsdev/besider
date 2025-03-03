@@ -1,10 +1,14 @@
+import styled from 'styled-components';
 import { useAppSelector } from '../../../app/hooks';
-import { ArticleType } from '../../../entities/Article/model/types';
-import { Article } from '../../../entities/Article/ui/Article';
 import {
-  selectArticlesBySection,
+  selectMapArticlesByDate,
   useGetInfiniteArticlesInfiniteQuery,
 } from '../api/api';
+import { ArticlesListContent } from './ArticlesListContent';
+
+const StyledDiv = styled.div`
+  margin: 0 20px;
+`;
 
 export const ArticlesList = () => {
   const { fetchNextPage, isFetching, isLoading } =
@@ -13,25 +17,17 @@ export const ArticlesList = () => {
       { pollingInterval: +(import.meta.env.VITE_POLLING_INTERVAL || 30000) }
     );
 
-  const articles = useAppSelector(selectArticlesBySection);
+  const articles = useAppSelector(selectMapArticlesByDate);
 
   return (
-    <>
-      <button onClick={() => fetchNextPage()}>Load more</button>
-      {articles?.map((article: ArticleType) => {
-        const media = article.multimedia[0];
+    <StyledDiv>
+      {Array.from(articles.entries()).map(([key, articles]) => {
         return (
-          <Article
-            key={article.web_url}
-            media={media}
-            source={article.source}
-            text={article.snippet}
-            date={new Date(article.pub_date)}
-            url={article.web_url}
-          />
+          <ArticlesListContent key={key} dateStr={key} articles={articles} />
         );
       })}
+      <button onClick={() => fetchNextPage()}>Load more</button>
       {(isLoading || isFetching) && <p>LOADING...</p>}
-    </>
+    </StyledDiv>
   );
 };

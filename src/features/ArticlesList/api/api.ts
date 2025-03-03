@@ -73,3 +73,22 @@ export const selectArticlesBySection = createSelector(
     });
   }
 );
+
+export const selectMapArticlesByDate = createSelector(
+  selectArticlesBySection,
+  (articles = []) => {
+    const map = new Map<string, Article[]>();
+    articles.forEach((article: Article) => {
+      const articleDate = new Date(article.pub_date);
+      const day = articleDate.getDate();
+      const month = articleDate.getMonth() + 1;
+      const year = articleDate.getFullYear();
+      const dateStr = `${day}/${month}/${year}`;
+      if (!map.has(dateStr)) {
+        map.set(dateStr, []);
+      }
+      map.get(dateStr)?.push(article);
+    });
+    return map;
+  }
+);

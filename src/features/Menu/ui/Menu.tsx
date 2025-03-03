@@ -3,6 +3,7 @@ import { slide as MenuComponent, Styles } from 'react-burger-menu';
 import hamburger from '../../../assets/hamburger.svg';
 import cross from '../../../assets/cross.svg';
 import { MenuItem } from './MenuItem';
+import { MENU_LABELS } from '../model/labels';
 
 const styles: Partial<Styles> = {
   bmBurgerButton: {
@@ -10,11 +11,13 @@ const styles: Partial<Styles> = {
     width: '16px',
     height: '20px',
     left: '20px',
-    top: '20px',
+    top: '26px',
   },
   bmCrossButton: {
     height: '20px',
     width: '20px',
+    right: '20px',
+    top: '20px',
   },
   bmOverlay: {
     background: 'var(--bg-color)',
@@ -29,10 +32,10 @@ const styles: Partial<Styles> = {
 };
 
 interface Props {
-  labels: string[];
+  labels?: string[];
 }
 
-export const Menu: FC<Props> = ({ labels }) => {
+export const Menu: FC<Props> = ({ labels = MENU_LABELS }) => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => {
     setIsOpen(false);
