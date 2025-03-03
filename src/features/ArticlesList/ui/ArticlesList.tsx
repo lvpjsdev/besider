@@ -5,6 +5,7 @@ import {
   useGetInfiniteArticlesInfiniteQuery,
 } from '../api/api';
 import { ArticlesListContent } from './ArticlesListContent';
+import { Loader } from '../../Loader/ui/Loader';
 
 const StyledDiv = styled.div`
   margin: 0 20px;
@@ -27,7 +28,7 @@ export const ArticlesList = () => {
         );
       })}
       <button onClick={() => fetchNextPage()}>Load more</button>
-      {(isLoading || isFetching) && <p>LOADING...</p>}
+      {(isLoading || isFetching) && <Loader />}
     </StyledDiv>
   );
 };
