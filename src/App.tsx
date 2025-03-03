@@ -1,25 +1,22 @@
-// import { slide as Menu } from 'react-burger-menu';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import { ArticlesList } from './features/ArticlesList/ui/ArticlesList';
+import './App.css';
+import { Menu } from './features/Menu/Menu';
+import { MenuItem } from './features/Menu/MenuItem';
 
 function App() {
   return (
     <Provider store={store}>
-      {/* <Menu>
-        <a id="home" className="menu-item" href="/">
-          Home
-        </a>
-        <a id="about" className="menu-item" href="/about">
-          About
-        </a>
-        <a id="contact" className="menu-item" href="/contact">
-          Contact
-        </a>
-        <a className="menu-item--small" href="">
-          Settings
-        </a>
-      </Menu> */}
+      <Menu>
+        <MenuItem label="Science" onClick={() => {}} />
+        <MenuItem label="General" onClick={() => {}} />
+        <MenuItem label="Entertainment" onClick={() => {}} />
+        <MenuItem label="Technology" onClick={() => {}} />
+        <MenuItem label="Business" onClick={() => {}} />
+        <MenuItem label="Health" onClick={() => {}} />
+        <MenuItem label="Sports" onClick={() => {}} />
+      </Menu>
       <main>
         <ArticlesList />
       </main>
