@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../../app/hooks';
 import { menuSlice } from '../store/menuSlice';
@@ -21,14 +21,14 @@ const Span = styled.span`
 
 export const MenuItem: FC<{ label: string; onClick: () => void }> = ({
   label,
+  onClick,
 }) => {
   const dispatch = useAppDispatch();
 
-  return (
-    <Span
-      onClick={() => dispatch(menuSlice.actions.changeCurrentSection(label))}
-    >
-      {label}
-    </Span>
-  );
+  const onClickHandler = useCallback(() => {
+    dispatch(menuSlice.actions.changeCurrentSection(label));
+    onClick();
+  }, [dispatch, label, onClick]);
+
+  return <Span onClick={onClickHandler}>{label}</Span>;
 };

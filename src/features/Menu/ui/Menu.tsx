@@ -1,7 +1,9 @@
-import { FC, type ReactNode } from 'react';
+import { FC, useState, type ReactNode } from 'react';
 import { slide as MenuComponent, Styles } from 'react-burger-menu';
 import hamburger from '../../../assets/hamburger.svg';
 import cross from '../../../assets/cross.svg';
+import { MenuItem } from './MenuItem';
+import { useAppDispatch } from '../../../app/hooks';
 
 const styles: Partial<Styles> = {
   bmBurgerButton: {
@@ -27,15 +29,29 @@ const styles: Partial<Styles> = {
   },
 };
 
-export const Menu: FC<{ children: ReactNode }> = ({ children }) => {
+interface Props {
+  labels: string[];
+}
+
+export const Menu: FC<Props> = ({ labels }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <MenuComponent
       width={'100%'}
       styles={styles}
       customBurgerIcon={<img height={20} width={16} src={hamburger} />}
       customCrossIcon={<img height={20} width={20} src={cross} />}
+      isOpen={isOpen}
+      onOpen={() => setIsOpen(true)}
+      onClose={() => setIsOpen(false)}
     >
-      {children}
+      {labels.map((label) => (
+        <MenuItem key={label} label={label} onClick={closeMenu} />
+      ))}
     </MenuComponent>
   );
 };
