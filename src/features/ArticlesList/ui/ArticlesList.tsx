@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useAppSelector } from '../../../app/hooks';
 import {
-  selectMapArticlesByDate,
+  selectArticlesBySection,
   useGetInfiniteArticlesInfiniteQuery,
 } from '../api/api';
 import { ArticlesListContent } from './ArticlesListContent';
@@ -14,27 +14,27 @@ const StyledDiv = styled.div`
 
 export const ArticlesList = () => {
   const { fetchNextPage, isFetching, isLoading } =
-    useGetInfiniteArticlesInfiniteQuery(
-      {},
-      { pollingInterval: +(import.meta.env.VITE_POLLING_INTERVAL || 30000) }
-    );
+    useGetInfiniteArticlesInfiniteQuery({
+      pollingInterval: +(import.meta.env.VITE_POLLING_INTERVAL || 60000),
+    });
 
-  const articles = useAppSelector(selectMapArticlesByDate);
+  const articles = useAppSelector(selectArticlesBySection);
 
   return (
     <StyledDiv>
       <InfiniteScroll
-        dataLength={articles.size}
+        dataLength={articles.length}
         next={fetchNextPage}
         hasMore={!isLoading && !isFetching}
         loader={<Loader />}
-        scrollThreshold={'300px'}
       >
-        {Array.from(articles.entries()).map(([key, articles]) => {
-          return (
-            <ArticlesListContent key={key} dateStr={key} articles={articles} />
-          );
-        })}
+        {articles.map(({ dateStr, articles }) => (
+          <ArticlesListContent
+            key={dateStr}
+            dateStr={dateStr}
+            articles={articles}
+          />
+        ))}
       </InfiniteScroll>
     </StyledDiv>
   );
