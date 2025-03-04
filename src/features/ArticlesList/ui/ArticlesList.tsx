@@ -5,7 +5,7 @@ import {
   useGetInfiniteArticlesInfiniteQuery,
 } from '../api/api';
 import { ArticlesListContent } from './ArticlesListContent';
-import { Loader } from '../../Loader/ui/Loader';
+import { Loader } from '../../Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const StyledDiv = styled.div`
@@ -13,8 +13,8 @@ const StyledDiv = styled.div`
 `;
 
 export const ArticlesList = () => {
-  const { fetchNextPage, isFetching, isLoading } =
-    useGetInfiniteArticlesInfiniteQuery({
+  const { fetchNextPage, isLoading } =
+    useGetInfiniteArticlesInfiniteQuery({},{
       pollingInterval: +(import.meta.env.VITE_POLLING_INTERVAL || 60000),
     });
 
@@ -24,11 +24,15 @@ export const ArticlesList = () => {
     <StyledDiv>
       <InfiniteScroll
         dataLength={articles.length}
-        next={fetchNextPage}
-        hasMore={!isLoading && !isFetching}
+        next={()=>{
+          if (!isLoading) {
+            fetchNextPage();
+          }
+        }}
+        hasMore={true}
         loader={<Loader />}
       >
-        {articles.map(({ dateStr, articles }) => (
+        {articles?.map(({ dateStr, articles }) => (
           <ArticlesListContent
             key={dateStr}
             dateStr={dateStr}

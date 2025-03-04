@@ -1,11 +1,11 @@
 import { Provider } from 'react-redux';
 import { store } from './app/store';
-import { ArticlesList } from './features/ArticlesList/ui/ArticlesList';
+import { ArticlesList } from './features/ArticlesList';
 import './App.css';
 import { Menu } from './features/Menu/ui';
 import styled from 'styled-components';
-import { Header } from './layouts/Header/ui/Header';
-import { Footer } from './layouts/Footer/ui/Footer';
+import { Header } from './layouts/Header';
+import { Footer } from './layouts/Footer';
 
 const StyledMain = styled.main`
   min-width: 320px;

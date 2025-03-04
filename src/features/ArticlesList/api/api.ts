@@ -70,7 +70,6 @@ export const articlesApi = createApi({
           articles: articlesBySection,
         } as GetArticlesListResult;
       },
-      keepUnusedDataFor: 30,
     }),
   }),
 });
@@ -84,11 +83,8 @@ export const selectArticlesBySection = createSelector(
     selectMenuState,
   ],
   (articlesResult, { section }) => {
-    const articlesListResult = articlesResult.data?.pages.flatMap(
-      (page) => page
-    );
     return (
-      articlesListResult?.map((result) => {
+      articlesResult?.data?.pages?.map((result) => {
         if (section !== 'General') {
           return {
             dateStr: result.dateStr,
