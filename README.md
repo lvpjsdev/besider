@@ -1,54 +1,71 @@
-# React + TypeScript + Vite
+# Инструкция по запуску проекта
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+В этом документе описан процесс запуска проекта
 
-Currently, two official plugins are available:
+Демо проекта можно посмотреть [здесь]()
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Необходимые условия
 
-## Expanding the ESLint configuration
+Перед запуском проекта убедитесь, что на вашем компьютере установлены следующие компоненты:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*   **Node.js:** (версия, указанная в `.nvmrc`)
+*   **pnpm:** Этот проект использует pnpm для управления пакетами.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Установка и настройка
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  **Установка pnpm:**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    Если pnpm еще не установлен, выполните следующую команду:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+    ```bash
+    npm install -g pnpm
+    ```
+
+    Или, если вы предпочитаете использовать Corepack (доступен в Node.js 16.10+):
+
+    ```bash
+    corepack enable
+    ```
+    После этого вы сможете использовать `pnpm` напрямую.
+
+2.  **Установка зависимостей:**
+
+    Перейдите в корневую директорию проекта в вашем терминале и выполните:
+
+    ```bash
+    pnpm install
+    ```
+
+    Эта команда установит все зависимости проекта, указанные в файле `package.json`, используя pnpm.
+
+3.  **Создание файла .env:**
+
+    Создайте файл с именем `.env` в корне проекта. В этом файле будут храниться переменные окружения, необходимые для работы приложения.
+
+4.  **Настройка .env:**
+
+    Добавьте необходимые переменные окружения в файл `.env`. Пример можно посмотреть в файле `.env.example`
+
+    **Важно:** Замените примеры значений в файле `.env` на ваши реальные учетные данные и настройки. **Не добавляйте файл `.env` в систему контроля версий** (например, Git). Добавьте `.env` в ваш файл `.gitignore`, чтобы случайно не закоммитить его.
+
+## Запуск проекта
+
+1.  **Запуск сервера разработки:**
+
+    После установки зависимостей и настройки файла `.env` вы можете запустить проект:
+
+    ```bash
+    pnpm dev # или pnpm start, pnpm run dev, и т.д.
+    ```
+
+    Эта команда обычно запускает сервер разработки (с горячей перезагрузкой) 
+
+2. **Доступ к приложению:**
+После запуска сервера приложение обычно будет доступно по адресу `http://localhost:<PORT>` (например, `http://localhost:3000`), если переменная `PORT` настроена и не было внесено никаких изменений.
+
+## Дополнительные замечания
+
+*   Обратитесь к файлу `package.json` для получения более подробной информации о доступных скриптах, зависимостях и метаданных проекта.
+* Этот README является шаблоном и может потребовать адаптации к требованиям вашего конкретного проекта.
+
+Если у вас возникнут какие-либо проблемы или вопросы, обратитесь к документации проекта или свяжитесь со мной
