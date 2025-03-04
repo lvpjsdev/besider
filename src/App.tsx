@@ -5,6 +5,7 @@ import './App.css';
 import { Menu } from './features/Menu/ui';
 import styled from 'styled-components';
 import { Header } from './layouts/Header/ui/Header';
+import { Footer } from './layouts/Footer/ui/Footer';
 
 const StyledMain = styled.main`
   min-width: 320px;
@@ -20,6 +21,7 @@ function App() {
       <StyledMain>
         <ArticlesList />
       </StyledMain>
+      <Footer />
     </Provider>
   );
 }
